@@ -1,9 +1,70 @@
+import { useEffect,useState } from "react";
+import { useParams } from "react-router-dom";
+import { collection,
+        getDocs,
+        query,
+        where,
+        orderBy,
+        limit,
+ } from "firebase/firestore";    
 
-
+import { db } from "../firebase.config";
+import { toast } from "react-toastify";
+import Spinner from "../components/Spinner";
 function Category() {
+    const [listings,setListings] = useState(null);
+    const [loading,setloading] = useState(true);
+    const params = useParams();
+
+    useEffect(()=>{
+        const fetchListings = async() =>{
+            try{
+                // Fetch Reference
+                const ListingRef = collection(db,'listings');
+
+                // Create a query
+                const q = query(ListingRef,
+                    where('type','==',params.categoryName),
+                    orderBy('timestamp','desc'),
+                    limit(10)
+                )
+
+                // execute the query 
+                const querySnap = await getDocs(q);
+                const listings = [];
+                querySnap.forEach((doc) =>{
+                    return listings.push({
+                        id : doc.id,
+                        data : doc.data(),
+                    })
+                })
+
+                setListings(listings);
+                setloading(false);
+            }catch(error){
+                toast.error("Error in fetching the listing data from the firebase ...")
+                console.log(error);
+            }
+        }
+        fetchListings();
+    },[params.categoryName])
   return (
-    <div>
-      Category Name
+    <div className="category">
+      <header>
+        <p className="pageHeader">
+            Places for {params.categoryName}
+        </p>
+      </header>
+      {loading ? <Spinner /> : listings && listings.length > 0 ? 
+      <>
+      <main>
+        <ul className="categoryListings">
+            {listings.map((listing) =>(
+                <h3>{listing.data.name}</h3>
+            ))}
+        </ul>
+      </main>
+      </> : <p>No listings for {params.categoryName}</p>}
     </div>
   )
 }
