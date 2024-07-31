@@ -51,12 +51,15 @@ function Signin() {
           <input type="email" className="emailInput" placeholder="Email :"
           id="email" value={email} onChange={onChange}/>
  
-          <div >
+          <div>
           <input type={showpassword ? 'text' : 'password'} 
               className="passwordInput"
               placeholder="Password :" id='password' value = {password} 
               onChange={onChange}/>
-          <img color='green'src={showpassword ? visibilityIconTrue : visibilityIcon} alt="No Image available " className="showPassword" onClick={() => setshowpassword(!showpassword)}/>
+              <div>
+              <img color='green'src={showpassword ? visibilityIconTrue : visibilityIcon} alt="No Image available " className="showPassword" onClick={() => setshowpassword(!showpassword)}/>
+              </div>
+          
           </div>
 
           
