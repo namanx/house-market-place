@@ -1,10 +1,11 @@
-import { useEffect,useState } from "react";
+import { useState } from "react";
 import { getAuth,updateProfile } from "firebase/auth";
 import { useNavigate,Link } from "react-router-dom";
 import {doc, updateDoc } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { db } from "../firebase.config";
-
+import ArrowRight from '../assets/svg/keyboardArrowRightIcon.svg'
+import HomeIcon from '../assets/svg/homeIcon.svg'
 
 
 function Profile() {
@@ -76,7 +77,7 @@ function Profile() {
               {changeDetails ? 'Done' : 'Change'}
             </p>
           </div>
-        </main>
+      
 
         <div className="profileCard">
           <form >
@@ -90,6 +91,16 @@ function Profile() {
             onChange={onChange}/>
           </form>
         </div>
+
+        <Link
+        className='createListing' 
+        to='/create-listing'>
+          <img src={HomeIcon} alt="Home Icon" />
+          <p>Sell or Rent your home</p>
+          <img src={ArrowRight} alt="Arrow Right" />
+        </Link>
+        
+        </main>
   </div>
 }
 
