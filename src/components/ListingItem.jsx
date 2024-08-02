@@ -3,6 +3,7 @@ import {ReactComponent as DeleteIcon} from '../assets/svg/deleteIcon.svg'
 import bedIcon from '../assets/svg/bedIcon.svg'
 import BathTubIcon from '../assets/svg/bathtubIcon.svg'
 
+
 const ListingItem = ({listing,id,onDelete})  =>{
 
 
@@ -10,12 +11,15 @@ const ListingItem = ({listing,id,onDelete})  =>{
         <li className="categoryListing">
             <Link className="categoryListingLink"
                 to = {`/category/${listing.type}/${id}`}
-            >
-                <img 
-                src={listing.imgUrls[0]}
-                alt={listing.name}
-                className='categoryListingImg' 
-                 />
+            >   
+
+                            <img 
+                            src={listing.imgUrls[0]}
+                            alt={listing.name}
+                            className='categoryListingImg' 
+                             />
+            
+
                  <div className="categoryListingDetails">
                     <p className="categoryListingLocation">
                         {listing.location}
